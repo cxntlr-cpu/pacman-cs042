@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Pacman AI Lab</title>
+  <link rel="stylesheet" href="/game_viewer.css">
+  <script src="/game_viewer.js" defer></script>
+</head>
+<body>
+  <main class="shell">
+    <header>
+      <a class="brand" href="/" aria-label="Pacman AI Lab home"><span class="brand-mark"></span> PACMAN <span class="brand-light">AI LAB</span></a>
+      <a class="credit" href="https://ai.berkeley.edu/" target="_blank" rel="noreferrer">Built on Berkeley CS 188 ↗</a>
+    </header>
+    <section class="intro">
+      <p class="eyebrow">PLAY · EXPLORE · EXPERIMENT</p>
+      <h1>How should Pacman move?</h1>
+      <p>Try an idea. Watch it happen. Change your mind.</p>
+    </section>
+    <div class="workspace">
+      <aside class="controls" aria-label="Experiment settings">
+        <div class="control-heading"><span class="step-dot">1</span><h2>Choose an experiment</h2></div>
+        <label for="mode">Program</label>
+        <select id="mode">
+          <option value="play">Play yourself</option>
+          <option value="west">Always go west</option>
+          <option value="dfs">Depth-first search (DFS)</option>
+          <option value="bfs">Breadth-first search (BFS)</option>
+          <option value="ucs">Uniform-cost search (UCS)</option>
+          <option value="astar">A* search</option>
+          <option value="custom">My Pacman behavior</option>
+          <option value="compare">Compare searches</option>
+        </select>
+        <p id="description" class="description"></p>
+        <label for="maze">Maze</label>
+        <select id="maze"></select>
+        <div id="heuristic-group" hidden>
+          <label for="heuristic">A* estimate</label>
+          <select id="heuristic"><option value="manhattan">Horizontal + vertical distance</option><option value="custom">My A* heuristic</option></select>
+        </div>
+        <p id="maze-note" class="micro"></p>
+        <button id="run" class="primary">Run experiment <span>↗</span></button>
+        <p id="build-hint" class="build-hint" hidden></p>
+        <div class="divider"></div>
+        <div class="control-heading"><span class="step-dot">2</span><h2>Watch &amp; notice</h2></div>
+        <p class="question" id="question">Can you collect every dot?</p>
+        <p class="micro">Have an idea? Use the “My A* heuristic” or “My Pacman behavior” prompt from the repo.</p>
+      </aside>
+      <section class="viewer" aria-label="Pacman game">
+        <div class="viewer-bar"><span class="live-dot"></span><span id="view-title">YOUR MAZE</span><span class="engine-label">BERKELEY GAME ENGINE</span></div>
+        <div class="canvas-area"><canvas id="game" width="880" height="560" tabindex="0" aria-label="Pacman maze. In Play mode, use arrow keys or WASD."></canvas></div>
+        <div class="legend"><span><i class="key food-key"></i>Food</span><span><i class="key explored-key"></i>Explored</span><span><i class="key route-key"></i>Route</span><span id="mud-key" hidden><i class="key mud-key"></i>Cost 6</span></div>
+        <div class="playback" id="playback">
+          <div class="transport"><button id="toggle" class="icon-button" aria-label="Pause playback">Ⅱ</button><button id="step" class="icon-button" aria-label="Next step">→</button><button id="replay" class="icon-button" aria-label="Replay from beginning">↺</button><span id="progress-label">Ready</span></div>
+          <label class="speed-label" for="speed">Speed <select id="speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="3">3×</option><option value="8">8×</option></select></label>
+          <input id="timeline" type="range" min="0" max="1" value="0" aria-label="Playback position">
+          <label class="checkbox-label"><input id="explored" type="checkbox" checked> Show explored squares</label>
+        </div>
+        <div class="manual-controls" id="manual-controls" hidden>
+          <p>Arrow keys / WASD <span>or use these buttons</span></p>
+          <div class="direction-buttons"><button data-move="West" aria-label="Move west">←</button><button data-move="North" aria-label="Move north">↑</button><button data-move="South" aria-label="Move south">↓</button><button data-move="East" aria-label="Move east">→</button></div>
+        </div>
+        <div class="metrics"><div><span id="moves">0</span><label>Moves</label></div><div><span id="cost">0</span><label>Travel cost</label></div><div><span id="expanded">—</span><label>Search expansions</label></div><div><span id="score">0</span><label>Game score</label></div></div>
+      </section>
+    </div>
+    <div id="message" role="status" aria-live="polite"><span class="message-dot"></span><span id="status">Getting your maze ready…</span></div>
+    <p id="heuristic-note" class="micro note" hidden></p>
+    <section id="comparison" hidden><h2>Same maze. Different approaches.</h2><p class="micro">Click a completed row to replay it. Run the matching prompt to build a missing search.</p><div class="table-scroll"><table><thead><tr><th>Search</th><th>Moves</th><th>Travel cost</th><th>Expansions</th><th>Result</th></tr></thead><tbody id="comparison-body"></tbody></table></div></section>
+    <footer><span>No AI runs inside this game. Your AI assistant helps you change the Python code.</span><span>Keep your terminal open.</span></footer>
+  </main>
+</body>
+</html>

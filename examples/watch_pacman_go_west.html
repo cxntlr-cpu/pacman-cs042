@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Pacman AI Lab</title>
+  <style>:root{color-scheme:light;--paper:#f4f3ed;--ink:#1e292e;--muted:#687376;--blue:#2452d6;--line:#dedfd8;--white:#fff;--yellow:#ffdb59}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:14px;line-height:1.5}.shell{max-width:1160px;margin:0 auto;padding:0 40px}header{height:90px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}a{color:inherit}.brand{display:flex;align-items:center;gap:9px;text-decoration:none;font-size:13px;font-weight:800;letter-spacing:1.5px}.brand-light{font-weight:450;color:var(--muted)}.brand-mark{height:24px;width:24px;background:#e9b811;clip-path:polygon(100% 0,100% 24%,53% 50%,100% 76%,100% 100%,0 100%,0 0);border-radius:50%;margin-right:3px}.credit{font-size:12px;color:var(--muted);text-decoration:none}.credit:hover{color:var(--blue)}.intro{padding:36px 0 28px}.eyebrow{font-size:10px;letter-spacing:2px;font-weight:700;color:var(--blue);margin:0 0 10px}h1{font-size:clamp(28px,4vw,40px);font-weight:650;letter-spacing:-1.6px;line-height:1.12;margin:0 0 10px}.intro>p:last-child{color:var(--muted);font-size:15px;margin:0}.workspace{display:grid;grid-template-columns:260px minmax(0,1fr);gap:22px;align-items:start}.controls{background:var(--white);border:1px solid var(--line);padding:23px;border-radius:14px}.control-heading{display:flex;align-items:center;gap:8px;margin-bottom:21px}h2{font-size:13px;font-weight:650;margin:0}.step-dot{background:#ebeffc;color:var(--blue);width:20px;height:20px;border-radius:50%;display:inline-grid;place-items:center;font-size:10px;font-weight:700;flex:none}label{display:block;font-size:11px;font-weight:600;margin-bottom:7px}select{appearance:auto;background:white;border:1px solid #d8dcd9;border-radius:7px;color:var(--ink);font:inherit;font-size:12px;width:100%;padding:10px 7px;cursor:pointer}select:focus-visible,button:focus-visible,input:focus-visible,canvas:focus-visible{outline:3px solid #86b0ff;outline-offset:3px}button{font:inherit;cursor:pointer;touch-action:manipulation}button:disabled{opacity:.55;cursor:wait}.description{font-size:12px;line-height:1.65;color:var(--muted);min-height:62px;margin:12px 0 20px}.micro{font-size:11px;color:var(--muted);line-height:1.65;margin:12px 0 0}#heuristic-group{margin-top:16px}.primary{border:0;width:100%;border-radius:8px;padding:12px 14px;background:var(--blue);color:#fff;text-align:left;font-size:12px;font-weight:600;margin-top:17px;display:flex;align-items:center;justify-content:space-between;transition:background .15s}.primary:hover{background:#173fae}.primary span{font-size:17px}.divider{height:1px;background:var(--line);margin:24px 0}.question{font-size:13px;line-height:1.65;margin:0}.build-hint{background:#fff6db;border:1px solid #f0dfac;border-radius:6px;padding:9px;font-size:11px;line-height:1.6;margin:12px 0 0}.viewer{overflow:hidden;background:white;border-radius:14px;border:1px solid #d3d9d7}.viewer-bar{display:flex;align-items:center;gap:8px;background:#19252f;color:#d4e0e4;padding:14px 20px;font-size:9px;font-weight:600;letter-spacing:1.3px}.live-dot{background:#77d5b5;height:6px;width:6px;border-radius:50%}.engine-label{margin-left:auto;font-size:8px;color:#8398a6;letter-spacing:1px}.canvas-area{background:#111d27;display:grid;place-items:center;padding:16px 22px 4px;min-height:320px}canvas{width:100%;height:auto;max-height:450px;aspect-ratio:1.65;display:block;touch-action:none}.legend{display:flex;justify-content:center;gap:22px;background:#111d27;color:#8ba0ac;font-size:10px;padding:6px 10px 20px}.legend span{display:inline-flex;align-items:center;gap:6px}.key{display:inline-block;width:8px;height:8px;border-radius:2px}.food-key{width:5px;height:5px;border-radius:50%;background:#f5e9bd}.explored-key{background:#2e6477}.route-key{background:#71e3bc}.mud-key{background:#8c642c}.playback{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:13px;padding:17px 20px;border-bottom:1px solid #e8ebe7}.transport{display:flex;gap:6px;align-items:center}.icon-button{background:#f1f3f3;border:1px solid #e1e7e4;border-radius:5px;height:28px;width:29px;font-size:14px;color:#33474c}.icon-button:hover{background:#e2e8e5}#progress-label{font-variant-numeric:tabular-nums;font-size:10px;color:var(--muted);margin-left:6px}.speed-label{display:flex;align-items:center;gap:7px;font-size:10px;font-weight:400;margin:0}.speed-label select{width:62px;padding:4px;font-size:10px}#timeline{flex-basis:100%;width:100%;height:4px;margin:2px 0 4px;accent-color:var(--blue);cursor:pointer}.checkbox-label{font-size:10px;font-weight:400;color:var(--muted);display:flex;align-items:center;gap:5px;margin:0}.checkbox-label input{accent-color:var(--blue);margin:0}.metrics{display:grid;grid-template-columns:repeat(4,1fr);padding:17px 0}.metrics>div{display:flex;align-items:center;justify-content:center;flex-direction:column;border-right:1px solid #e6eae5}.metrics>div:last-child{border-right:0}.metrics span{font-size:22px;font-weight:650;line-height:1.2;font-variant-numeric:tabular-nums;letter-spacing:-.7px}.metrics label{font-size:9px;font-weight:400;color:var(--muted);margin:6px 0 0}.manual-controls{padding:12px 20px;display:flex;gap:10px;align-items:center;justify-content:space-between;border-bottom:1px solid #e8ebe7}.manual-controls p{font-size:11px;margin:0}.manual-controls p span{display:block;font-size:10px;color:var(--muted)}.direction-buttons{display:flex;gap:5px}.direction-buttons button{height:30px;width:34px;background:#f1f3f3;border:1px solid #e1e7e4;border-radius:5px}#message{margin:20px 0 0;display:flex;align-items:flex-start;gap:9px;font-size:12px;color:#455b50;min-height:20px}.message-dot{width:6px;height:6px;background:#4c9578;border-radius:50%;margin-top:6px;flex:none}#message.error{color:#9a3b28}#message.error .message-dot{background:#c65f40}.note{margin-top:5px;padding-left:15px}#comparison{margin-top:26px;background:white;border:1px solid var(--line);padding:22px;border-radius:12px}#comparison h2{font-size:17px}.table-scroll{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:12px;margin-top:16px;text-align:left}th{font-weight:500;font-size:10px;color:var(--muted);padding:10px;border-bottom:1px solid var(--line)}td{padding:12px 10px;border-bottom:1px solid #edf0eb}tr:last-child td{border:0}tr.playable{cursor:pointer}tr.playable:hover{background:#f0f5ff}td:first-child{font-weight:650}td:last-child{font-size:11px;max-width:300px}.pending{color:var(--muted)}footer{display:flex;justify-content:space-between;gap:16px;font-size:10px;color:#7b8484;padding:25px 0 22px;margin-top:20px;border-top:1px solid var(--line)}[hidden]{display:none!important}@media(max-width:780px){.shell{padding:0 20px}header{height:70px}.credit{font-size:10px}.brand{font-size:11px;gap:5px}.intro{padding:27px 0 23px}.workspace{grid-template-columns:1fr;gap:15px}.controls{display:grid;grid-template-columns:1fr 1fr;column-gap:15px;padding:18px}.control-heading,.description,.divider,.question,.build-hint,.controls>.micro{grid-column:1/-1}.controls>label{grid-column:1/-1}.controls>select{grid-column:1/-1}.description{min-height:0;margin:10px 0 15px}.controls .divider,.controls .divider~.control-heading,.controls .question,.controls .question+.micro{display:none}.primary{grid-column:1/-1;margin-top:14px}#heuristic-group{grid-column:1/-1}.control-heading{margin-bottom:12px}.canvas-area{min-height:230px;padding:10px 12px 0}canvas{max-height:360px}.engine-label{font-size:7px}.metrics span{font-size:20px}.metrics label{font-size:8px}footer{flex-direction:column;gap:5px}.legend{gap:17px}.intro h1{letter-spacing:-1px}.playback{padding:14px 16px}.controls>.micro{margin-top:8px}}
+</style>
+
+</head>
+<body>
+  <main class="shell">
+    <header>
+      <a class="brand" href="/" aria-label="Pacman AI Lab home"><span class="brand-mark"></span> PACMAN <span class="brand-light">AI LAB</span></a>
+      <a class="credit" href="https://ai.berkeley.edu/" target="_blank" rel="noreferrer">Built on Berkeley CS 188 ↗</a>
+    </header>
+    <section class="intro">
+      <p class="eyebrow">PLAY · EXPLORE · EXPERIMENT</p>
+      <h1>How should Pacman move?</h1>
+      <p>Try an idea. Watch it happen. Change your mind.</p>
+    </section>
+    <div class="workspace">
+      <aside class="controls" aria-label="Experiment settings">
+        <div class="control-heading"><span class="step-dot">1</span><h2>Choose an experiment</h2></div>
+        <label for="mode">Program</label>
+        <select id="mode">
+          <option value="play">Play yourself</option>
+          <option value="west">Always go west</option>
+          <option value="dfs">Depth-first search (DFS)</option>
+          <option value="bfs">Breadth-first search (BFS)</option>
+          <option value="ucs">Uniform-cost search (UCS)</option>
+          <option value="astar">A* search</option>
+          <option value="custom">My Pacman behavior</option>
+          <option value="compare">Compare searches</option>
+        </select>
+        <p id="description" class="description"></p>
+        <label for="maze">Maze</label>
+        <select id="maze"></select>
+        <div id="heuristic-group" hidden>
+          <label for="heuristic">A* estimate</label>
+          <select id="heuristic"><option value="manhattan">Horizontal + vertical distance</option><option value="custom">My A* heuristic</option></select>
+        </div>
+        <p id="maze-note" class="micro"></p>
+        <button id="run" class="primary">Run experiment <span>↗</span></button>
+        <p id="build-hint" class="build-hint" hidden></p>
+        <div class="divider"></div>
+        <div class="control-heading"><span class="step-dot">2</span><h2>Watch &amp; notice</h2></div>
+        <p class="question" id="question">Can you collect every dot?</p>
+        <p class="micro">Have an idea? Use the “My A* heuristic” or “My Pacman behavior” prompt from the repo.</p>
+      </aside>
+      <section class="viewer" aria-label="Pacman game">
+        <div class="viewer-bar"><span class="live-dot"></span><span id="view-title">YOUR MAZE</span><span class="engine-label">BERKELEY GAME ENGINE</span></div>
+        <div class="canvas-area"><canvas id="game" width="880" height="560" tabindex="0" aria-label="Pacman maze. In Play mode, use arrow keys or WASD."></canvas></div>
+        <div class="legend"><span><i class="key food-key"></i>Food</span><span><i class="key explored-key"></i>Explored</span><span><i class="key route-key"></i>Route</span><span id="mud-key" hidden><i class="key mud-key"></i>Cost 6</span></div>
+        <div class="playback" id="playback">
+          <div class="transport"><button id="toggle" class="icon-button" aria-label="Pause playback">Ⅱ</button><button id="step" class="icon-button" aria-label="Next step">→</button><button id="replay" class="icon-button" aria-label="Replay from beginning">↺</button><span id="progress-label">Ready</span></div>
+          <label class="speed-label" for="speed">Speed <select id="speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="3">3×</option><option value="8">8×</option></select></label>
+          <input id="timeline" type="range" min="0" max="1" value="0" aria-label="Playback position">
+          <label class="checkbox-label"><input id="explored" type="checkbox" checked> Show explored squares</label>
+        </div>
+        <div class="manual-controls" id="manual-controls" hidden>
+          <p>Arrow keys / WASD <span>or use these buttons</span></p>
+          <div class="direction-buttons"><button data-move="West" aria-label="Move west">←</button><button data-move="North" aria-label="Move north">↑</button><button data-move="South" aria-label="Move south">↓</button><button data-move="East" aria-label="Move east">→</button></div>
+        </div>
+        <div class="metrics"><div><span id="moves">0</span><label>Moves</label></div><div><span id="cost">0</span><label>Travel cost</label></div><div><span id="expanded">—</span><label>Search expansions</label></div><div><span id="score">0</span><label>Game score</label></div></div>
+      </section>
+    </div>
+    <div id="message" role="status" aria-live="polite"><span class="message-dot"></span><span id="status">Getting your maze ready…</span></div>
+    <p id="heuristic-note" class="micro note" hidden></p>
+    <section id="comparison" hidden><h2>Same maze. Different approaches.</h2><p class="micro">Click a completed row to replay it. Run the matching prompt to build a missing search.</p><div class="table-scroll"><table><thead><tr><th>Search</th><th>Moves</th><th>Travel cost</th><th>Expansions</th><th>Result</th></tr></thead><tbody id="comparison-body"></tbody></table></div></section>
+    <footer><span>No AI runs inside this game. Your AI assistant helps you change the Python code.</span><span>Keep your terminal open.</span></footer>
+  </main>
+<script type="application/json" id="replay-data">{"width": 10, "height": 3, "walls": [[0, 0], [0, 1], [0, 2], [1, 0], [1, 2], [2, 0], [2, 2], [3, 0], [3, 2], [4, 0], [4, 2], [5, 0], [5, 2], [6, 0], [6, 2], [7, 0], [7, 2], [8, 0], [8, 2], [9, 0], [9, 1], [9, 2]], "mud": [], "mode": "west", "maze": "west", "heuristic": "manhattan", "frames": [{"position": [8, 1], "direction": "Stop", "food": [[1, 1]], "capsules": [], "ghosts": [], "score": 0.0, "won": false, "lost": false}, {"position": [7, 1], "direction": "West", "food": [[1, 1]], "capsules": [], "ghosts": [], "score": -1.0, "won": false, "lost": false}, {"position": [6, 1], "direction": "West", "food": [[1, 1]], "capsules": [], "ghosts": [], "score": -2.0, "won": false, "lost": false}, {"position": [5, 1], "direction": "West", "food": [[1, 1]], "capsules": [], "ghosts": [], "score": -3.0, "won": false, "lost": false}, {"position": [4, 1], "direction": "West", "food": [[1, 1]], "capsules": [], "ghosts": [], "score": -4.0, "won": false, "lost": false}, {"position": [3, 1], "direction": "West", "food": [[1, 1]], "capsules": [], "ghosts": [], "score": -5.0, "won": false, "lost": false}, {"position": [2, 1], "direction": "West", "food": [[1, 1]], "capsules": [], "ghosts": [], "score": -6.0, "won": false, "lost": false}, {"position": [1, 1], "direction": "West", "food": [], "capsules": [], "ghosts": [], "score": 503.0, "won": true, "lost": false}], "visits": [], "actions": ["West", "West", "West", "West", "West", "West", "West"], "moves": 7, "cost": 7, "planned_cost": null, "expanded": 0, "search_ms": null, "note": "", "status": "Food collected!", "won": true, "score": 503.0, "seed": 7}</script>
+<script>"use strict";
+const $ = id => document.getElementById(id);
+const descriptions = {
+  play: ["You choose each move. Collect the dots and keep away from ghosts.", "Can you collect every dot?"],
+  west: ["A simple rule: keep going west. Watch what happens when a wall gets in the way.", "What is missing from a rule that only says ‘go west’?"],
+  dfs: ["Follow one route as far as it goes, then backtrack. It finds a route, but may take a long one.", "Did finding a route quickly also make it a short route?"],
+  bfs: ["Explore nearby squares before farther ones. It finds the fewest moves when all steps cost the same.", "What changes when some squares cost more to enter?"],
+  ucs: ["Explore the cheapest total journey so far. Extra moves can be worthwhile if they avoid costly squares.", "Is the route with the fewest moves also the cheapest?"],
+  astar: ["Balance cost so far with an estimate of cost left. A useful estimate can reduce the search.", "How does your estimate change how many squares are explored?"],
+  custom: ["Your rule in my_pacman_behavior.py chooses each move. The starter favors west and can get stuck in a loop.", "What would you change after watching this round?"],
+  compare: ["Run the four searches on the same maze. Compare their routes, travel costs, and search effort.", "Which approach explores less while still finding a cheap route?"],
+};
+const mazeLabels = {tiny:"Tiny maze", medium:"Medium maze", costly:"Cost maze · orange squares cost 6", classic:"Classic · food & ghosts", west:"Go-west demo"};
+const promptNumbers = {dfs:"04_depth_first_search", bfs:"05_breadth_first_search", ucs:"06_uniform_cost_search", astar:"07_astar_search"};
+const displayName = mode => mode === "astar" ? "A*" : mode.toUpperCase();
+let config, trace = null, manual = null, session = null, position = 0, playing = false;
+let busy = false, moving = false, lastTick = 0, activeMode = "play";
+const canvas = $("game"), ctx = canvas.getContext("2d");
+
+function message(text, error=false) {
+  $("status").textContent = text;
+  $("message").classList.toggle("error", error);
+}
+async function api(path, body) {
+  const response = await fetch(path, body === undefined ? {cache:"no-store"} : {
+    method:"POST", headers:{"Content-Type":"application/json", "X-Lab-Token":config.token}, body:JSON.stringify(body)
+  });
+  const data = await response.json();
+  if (!response.ok || data.error) throw new Error(data.error || "The game could not connect. Reload the page.");
+  return data;
+}
+function configure(maze) {
+  const mode = $("mode").value;
+  const allowed = ["dfs","bfs","ucs","astar","compare"].includes(mode) ? ["tiny","medium","costly"] : mode === "west" ? ["west","tiny","medium","costly"] : ["classic","tiny","medium","costly","west"];
+  const old = maze || $("maze").value;
+  $("maze").replaceChildren(...allowed.map(value => new Option(mazeLabels[value], value)));
+  $("maze").value = allowed.includes(old) ? old : mode === "compare" ? "costly" : mode === "west" ? "west" : allowed[0];
+  $("description").textContent = descriptions[mode][0];
+  $("question").textContent = descriptions[mode][1];
+  $("heuristic-group").hidden = !["astar","compare"].includes(mode);
+  $("run").firstChild.textContent = mode === "play" ? "New game " : "Run experiment ";
+  const missing = Object.hasOwn(config.ready, mode) && !config.ready[mode];
+  $("build-hint").hidden = !missing;
+  $("build-hint").textContent = missing ? `Build this search first: copy ${promptNumbers[mode]}.prompt.md from prompts/ into your AI chat.` : "";
+  mazeNote();
+}
+function mazeNote() {
+  const costly = $("maze").value === "costly";
+  $("maze-note").textContent = costly ? "Entering an orange square costs 6. Every other step costs 1. Travel cost is separate from game score." : "Each step costs 1. Search mazes have one food dot; Classic has many.";
+  $("mud-key").hidden = !costly;
+}
+function setBusy(value) {
+  busy = value;
+  for (const id of ["run","mode","maze","heuristic"]) $(id).disabled = value;
+}
+function stopPlayback() { playing = false; $("toggle").textContent = "▶"; $("toggle").setAttribute("aria-label", "Play playback"); }
+function total() { return trace ? trace.visits.length + trace.frames.length - 1 : 0; }
+function currentFrame() { return trace ? trace.frames[Math.max(0, Math.min(trace.frames.length-1, position-trace.visits.length))] : manual; }
+function draw() {
+  const board = trace || manual;
+  if (!board) return;
+  const frame = currentFrame();
+  if (!frame) return;
+  const w = 880, h = 530;
+  const ratio = Math.min(window.devicePixelRatio || 1, 2);
+  if (canvas.width !== w*ratio || canvas.height !== h*ratio) {canvas.width=w*ratio;canvas.height=h*ratio;}
+  ctx.setTransform(ratio,0,0,ratio,0,0);
+  ctx.fillStyle = "#111d27";ctx.fillRect(0,0,w,h);
+  const cell = Math.min((w-34)/board.width,(h-30)/board.height,55);
+  const ox=(w-board.width*cell)/2, oy=(h-board.height*cell)/2;
+  const xy=([x,y]) => [ox+(x+.5)*cell, oy+(board.height-y-.5)*cell];
+  const square=(p,color,inset=1) => {const [x,y]=xy(p);ctx.fillStyle=color;ctx.fillRect(x-cell/2+inset,y-cell/2+inset,cell-inset*2,cell-inset*2);};
+  for (const p of board.mud) square(p,"#634a2a",1.5);
+  if (trace && $("explored").checked) {
+    trace.visits.slice(0,position).forEach((p,i) => square(p, i < position-1 ? "#214453" : "#3d8c9e",2));
+  }
+  // Keep expensive terrain identifiable even after the search explores it.
+  for(const p of board.mud){const [x,y]=xy(p);square(p,"rgba(176,124,49,.22)",2);ctx.strokeStyle="#a77e3c";ctx.lineWidth=1;ctx.strokeRect(x-cell/2+2,y-cell/2+2,cell-4,cell-4);}
+  if (trace) {
+    const count=Math.max(0,position-trace.visits.length);
+    const route=trace.frames.slice(0,count+1).map(f=>f.position);
+    if(route.length>1){ctx.strokeStyle="#65d3aa";ctx.lineWidth=Math.max(2,cell*.09);ctx.lineJoin="round";ctx.lineCap="round";ctx.beginPath();route.forEach((p,i)=>{const [x,y]=xy(p);i?ctx.lineTo(x,y):ctx.moveTo(x,y);});ctx.stroke();}
+  }
+  for(const p of board.walls){const [x,y]=xy(p);ctx.fillStyle="#162c4e";ctx.strokeStyle="#3665b0";ctx.lineWidth=1.1;ctx.beginPath();ctx.roundRect(x-cell/2+1.5,y-cell/2+1.5,cell-3,cell-3,Math.max(2,cell*.12));ctx.fill();ctx.stroke();}
+  for(const p of frame.food){const [x,y]=xy(p);ctx.fillStyle="#f5e9bd";ctx.beginPath();ctx.arc(x,y,Math.max(2,cell*.075),0,Math.PI*2);ctx.fill();}
+  for(const p of frame.capsules){const [x,y]=xy(p);ctx.fillStyle="#ffecbc";ctx.beginPath();ctx.arc(x,y,cell*.2,0,Math.PI*2);ctx.fill();}
+  frame.ghosts.forEach((g,i)=>{
+    const [x,y]=xy(g.position),r=cell*.34;
+    ctx.fillStyle=g.scared?"#6a8cde":["#fb7d86","#c096e6","#72d5d2","#f6b55c"][i%4];
+    ctx.beginPath();ctx.arc(x,y-r*.12,r,Math.PI,0);ctx.lineTo(x+r,y+r);ctx.lineTo(x+r*.5,y+r*.65);ctx.lineTo(x,y+r);ctx.lineTo(x-r*.5,y+r*.65);ctx.lineTo(x-r,y+r);ctx.closePath();ctx.fill();
+    for(const d of [-1,1]){ctx.fillStyle="#fff";ctx.beginPath();ctx.ellipse(x+d*r*.36,y-r*.08,r*.23,r*.3,0,0,Math.PI*2);ctx.fill();ctx.fillStyle="#233c61";ctx.beginPath();ctx.arc(x+d*r*.36+r*.06,y-r*.04,r*.12,0,Math.PI*2);ctx.fill();}
+  });
+  const [px,py]=xy(frame.position),radius=cell*.37;
+  const angles={East:0,South:Math.PI/2,West:Math.PI,North:-Math.PI/2,Stop:0};
+  const angle=angles[frame.direction]??0, mouth=.19*Math.PI;
+  ctx.fillStyle=frame.lost?"#e3a33c":"#ffdc52";ctx.beginPath();ctx.moveTo(px,py);ctx.arc(px,py,radius,angle+mouth,angle+Math.PI*2-mouth);ctx.closePath();ctx.fill();
+  const moves=trace?Math.max(0,position-trace.visits.length):manual.moves;
+  $("moves").textContent=moves;
+  const mudSet=new Set(board.mud.map(p=>p.join(",")));
+  $("cost").textContent=trace?trace.frames.slice(1,moves+1).reduce((n,f)=>n+(mudSet.has(f.position.join(","))?6:1),0):"—";
+  $("expanded").textContent=trace&&trace.mode in promptNumbers?Math.min(position,trace.visits.length):"—";
+  $("score").textContent=frame.score;
+  if(trace){$("timeline").value=position;$("progress-label").textContent=position<trace.visits.length?`Search ${position} / ${trace.visits.length}`:`Move ${moves} / ${trace.moves}`;}
+}
+function showTrace(result, autoplay=true) {
+  trace=result;manual=null;session=null;activeMode=result.mode;position=0;
+  $("manual-controls").hidden=true;$("playback").hidden=false;
+  $("timeline").max=Math.max(1,total());
+  $("heuristic-note").hidden=!result.note;$("heuristic-note").textContent=result.note;
+  $("mud-key").hidden=!result.mud.length;
+  $("view-title").textContent=displayName(result.mode)+" · "+result.maze.toUpperCase();
+  playing=autoplay&&total()>0;lastTick=0;
+  $("toggle").textContent=playing?"Ⅱ":"▶";
+  $("toggle").setAttribute("aria-label",playing?"Pause playback":"Play playback");
+  message(`Route ready · ${result.moves} moves · travel cost ${result.cost} · ${result.expanded} search expansions. ${result.status}`);
+  draw();
+}
+function showComparison(rows) {
+  $("comparison").hidden=false;$("comparison-body").replaceChildren();
+  for(const row of rows){
+    const tr=document.createElement("tr");
+    const cells=row.error?[displayName(row.mode),"—","—","—",row.error]:[displayName(row.mode),row.moves,row.cost,row.expanded,row.status];
+    for(const value of cells){const td=document.createElement("td");td.textContent=value;tr.append(td);}
+    if(!row.error){tr.classList.add("playable");tr.tabIndex=0;tr.setAttribute("aria-label",`Replay ${row.mode.toUpperCase()}`);tr.addEventListener("click",()=>showTrace(row));tr.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();showTrace(row);}});}
+    else tr.classList.add("pending");
+    $("comparison-body").append(tr);
+  }
+  const first=rows.find(r=>!r.error);
+  if(first)showTrace(first);else message("Build a search with prompts 04–07, then compare again.",true);
+}
+async function startManual(maze) {
+  const data=await api("/api/start",{maze});
+  trace=null;manual=data;session=data.session;activeMode="play";stopPlayback();
+  $("manual-controls").hidden=false;$("playback").hidden=true;
+  $("heuristic-note").hidden=true;$("view-title").textContent="YOUR TURN · "+maze.toUpperCase();
+  $("mud-key").hidden=!data.mud.length;
+  message(data.status);draw();canvas.focus({preventScroll:true});
+}
+async function run() {
+  if(busy)return;
+  stopPlayback();setBusy(true);$("comparison").hidden=true;$("heuristic-note").hidden=true;
+  message("Getting your experiment ready…");
+  try{
+    config=await api("/api/config");
+    configure($("maze").value);
+    const mode=$("mode").value,maze=$("maze").value,heuristic=$("heuristic").value;
+    if(mode==="play")await startManual(maze);
+    else {
+      await startManual(maze);
+      session=null;activeMode=mode;
+      $("manual-controls").hidden=true;$("playback").hidden=true;
+      $("view-title").textContent=displayName(mode)+" · "+maze.toUpperCase();
+      message("Getting your experiment ready…");
+      const result=await api("/api/run",{mode,maze,heuristic});
+      if(result.comparison)showComparison(result.comparison);else showTrace(result);
+    }
+  }catch(error){message(error.message,true);}
+  finally{setBusy(false);}
+}
+async function move(action) {
+  if(!session||activeMode!=="play"||moving||busy)return;
+  moving=true;
+  try{const data=await api("/api/move",{session,action});manual={...manual,...data};message(data.status);draw();}
+  catch(error){message(error.message,true);}
+  finally{moving=false;}
+}
+$("run").addEventListener("click",run);
+$("mode").addEventListener("change",()=>{stopPlayback();configure();});
+$("maze").addEventListener("change",mazeNote);
+$("toggle").addEventListener("click",()=>{if(!trace)return;if(position>=total())position=0;playing=!playing;$("toggle").textContent=playing?"Ⅱ":"▶";$("toggle").setAttribute("aria-label",playing?"Pause playback":"Play playback");lastTick=0;draw();});
+$("step").addEventListener("click",()=>{stopPlayback();position=Math.min(total(),position+1);draw();});
+$("replay").addEventListener("click",()=>{if(trace)showTrace(trace);});
+$("timeline").addEventListener("input",()=>{stopPlayback();position=Number($("timeline").value);draw();});
+$("explored").addEventListener("change",draw);
+document.querySelectorAll("[data-move]").forEach(b=>b.addEventListener("click",()=>move(b.dataset.move)));
+document.addEventListener("keydown",event=>{
+  if(["SELECT","INPUT","TEXTAREA","BUTTON"].includes(event.target.tagName))return;
+  const action={ArrowUp:"North",w:"North",W:"North",ArrowDown:"South",s:"South",S:"South",ArrowLeft:"West",a:"West",A:"West",ArrowRight:"East",d:"East",D:"East"}[event.key];
+  if(action&&session&&activeMode==="play"){event.preventDefault();move(action);}
+});
+function tick(now) {
+  if(playing&&trace){
+    const interval=150/Number($("speed").value);
+    if(!lastTick)lastTick=now;
+    if(now-lastTick>=interval){position=Math.min(total(),position+Math.max(1,Math.floor((now-lastTick)/interval)));lastTick=now;draw();if(position>=total())stopPlayback();}
+  }
+  requestAnimationFrame(tick);
+}
+async function init() {
+  try{
+    const saved=$("replay-data");
+    if(saved){
+      const result=JSON.parse(saved.textContent);
+      const first=result.comparison?.find(row=>!row.error)||result;
+      config={ready:{},initial:{}};
+      $("mode").value=result.comparison?"compare":first.mode||"compare";
+      $("heuristic").value=first.heuristic||"manhattan";
+      configure(first.maze||"costly");
+      for(const id of ["mode","maze","heuristic","run"])$(id).disabled=true;
+      $("run").textContent="Saved replay";
+      $("description").textContent="A recorded run from the real game. Use the playback controls to explore it; run the Python project to try a new idea.";
+      document.querySelector(".brand").removeAttribute("href");
+      document.querySelector("footer").textContent="Offline replay · no installation, connection, or running terminal needed.";
+      if(result.comparison)showComparison(result.comparison);else showTrace(result);
+      requestAnimationFrame(tick);return;
+    }
+    config=await api("/api/config");
+    $("mode").value=config.initial.mode;$("heuristic").value=config.initial.heuristic;
+    configure(config.initial.maze);
+    // Always show a real board, even while a search still needs its first prompt.
+    await startManual($("maze").value);
+    if(config.initial.mode!=="play")await run();
+    requestAnimationFrame(tick);
+  }catch(error){message(error.message,true);}
+}
+init();
+</script>
+</body>
+</html>

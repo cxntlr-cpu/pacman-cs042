@@ -1,0 +1,1 @@
+Follow AGENTS.md. This project is for non-CS students: use short explanations, clear commands, and a visible game. Student recipes are in prompts/; setup guides are in instructions/. The launcher is start_pacman.py. Keep downloaded Berkeley code and completed search functions inside the ignored berkeley_pacman/ folder. Use the private forwarded browser link in Codespaces.
