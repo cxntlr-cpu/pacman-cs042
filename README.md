@@ -38,6 +38,8 @@ Open a file below. Copy the text inside its box into **Copilot Chat → Agent mo
 
 Each search prompt asks AI to **explain → build → check → run**. Play and Go west work immediately. The search algorithms are built in your own copy when you use their prompts.
 
+--
+
 ## 3. Watch and experiment
 
 In the browser, choose a program and click **Run experiment**. Pause, step, change speed, or drag the timeline. Colored squares show exploration; the green line shows the route. **Compare searches** puts their results together.
